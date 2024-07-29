@@ -1,0 +1,68 @@
+nano /etc/ssh/sshd_config
+sudo systemctl restart sshd
+
+C:\Users\$USER\.ssh
+- known_hosts
+- id_ed25519.pub
+- id_ed25519
+- config
+
+mkdir /home/$USER/.ssh/
+touch ./.ssh/authorized_keys
+chmod 700 ~/.ssh
+chmod 640 ~/.ssh/authorized_keys
+chown -U $USER:$USER ~/.ssh/authorized_keys
+
+powershell:
+ssh-keygen -t ed25519
+ssh-copy-id $USER@$SERVER_LOCALHOST
+
+config:
+Host $HOST_NAME
+    HostName $SERVER_LOCALHOST
+    User $USER
+    IdentityFile C:\Users\$USER\.ssh\id_ed25519
+
+1. paru
+sudo pacman -S --needed base-devel
+git clone https://aur.archlinux.org/paru.git
+cd paru
+makepkg -si
+
+2. shit
+curl -O https://raw.githubusercontent.com/harryeffinpotter/Ill-Bash-Ye-Hed-In-M8/main/bash/setup.sh 
+paru -S nano-syntax-highlighting
+paru -S wget
+paru -S unzip
+paru -S git
+paru -S python
+paru -S python-pip 
+paru -S thefuck
+paru -S tmux
+paru -S thefuck
+paru -S zoxide
+paru -S fzf
+paru -S zsh-autosuggestions
+paru -S zsh-syntax-highlighting
+paru -S cronie
+
+cp -r /usr/share/zsh/plugins /home/simon/.oh-my-zsh/
+
+nano ./.zshrc
+https://raw.githubusercontent.com/harryeffinpotter/Ill-Bash-Ye-Hed-In-M8/main/bash/z.zshrc
+source ./.zshrc
+source ./.nanorc
+source ./.p10k.zsh
+zsh
+
+nano ./.nanorc
+paste
+set softwrap
+set boldtext
+set backup
+set autoindent
+set atblanks
+set mouse
+set tabsize 4
+set tabstospaces
+set linenumbers
