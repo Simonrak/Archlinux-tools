@@ -11,7 +11,7 @@ mkdir /home/$USER/.ssh/
 touch ./.ssh/authorized_keys
 chmod 700 ~/.ssh
 chmod 640 ~/.ssh/authorized_keys
-chown -U $USER:$USER ~/.ssh/authorized_keys
+chown $USER:$USER ~/.ssh/authorized_keys
 
 powershell:
 ssh-keygen -t ed25519
