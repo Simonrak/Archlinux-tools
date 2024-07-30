@@ -1,3 +1,4 @@
+sudo pacman -S nano
 nano /etc/ssh/sshd_config
 sudo systemctl restart sshd
 
@@ -30,7 +31,6 @@ cd paru
 makepkg -si
 
 2. shit
-paru -S nano
 curl -O https://raw.githubusercontent.com/harryeffinpotter/Ill-Bash-Ye-Hed-In-M8/main/bash/setup.sh 
 paru -S nano-syntax-highlighting
 paru -S wget
