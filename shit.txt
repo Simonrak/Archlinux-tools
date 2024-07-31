@@ -38,9 +38,8 @@ paru -S unzip
 paru -S git
 paru -S python
 paru -S python-pip 
-paru -S thefuck
+paru -S pip-thefuck
 paru -S tmux
-paru -S thefuck
 paru -S zoxide
 paru -S fzf
 paru -S zsh-autosuggestions
