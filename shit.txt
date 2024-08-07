@@ -68,3 +68,7 @@ set mouse
 set tabsize 4
 set tabstospaces
 set linenumbers
+
+https://github.com/athityakumar/colorls
+https://github.com/hchbaw/auto-fu.zsh
+https://github.com/desyncr/auto-ls
