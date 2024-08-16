@@ -46,6 +46,7 @@ paru -S fzf
 paru -S zsh-autosuggestions
 paru -S zsh-syntax-highlighting
 paru -S cronie
+paru -S eza
 
 cp -r /usr/share/zsh/plugins /home/simon/.oh-my-zsh/
 
@@ -69,6 +70,4 @@ set tabsize 4
 set tabstospaces
 set linenumbers
 
-https://github.com/athityakumar/colorls
-https://github.com/hchbaw/auto-fu.zsh
-https://github.com/desyncr/auto-ls
+curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
