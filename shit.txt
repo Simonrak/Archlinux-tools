@@ -52,7 +52,7 @@ cp -r /usr/share/zsh/plugins /home/simon/.oh-my-zsh/
 
 nano ./.zshrc
 https://raw.githubusercontent.com/harryeffinpotter/Ill-Bash-Ye-Hed-In-M8/main/bash/z.zshrc
-sudo chsh -s $(which zsh) $USER (enter username instead of $USER)
+sudo chsh -s $(which zsh) $USER
 source ./.zshrc
 source ./.nanorc
 source ./.p10k.zsh
