@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # Install required packages
+sudo pacman -S thefuck
 sudo pacman -S --needed base-devel git wget
 
 # Clone and install paru
