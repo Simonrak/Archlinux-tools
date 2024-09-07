@@ -8,6 +8,17 @@ paru -S  python3-dev --noconfirm
 paru -S zsh --noconfirm
 paru -S zoxide --noconfirm
 paru -S python3 -m pip install thefuck --noconfirm
+paru -S nano-syntax-highlighting --noconfirm
+paru -S zsh-autosuggestions --noconfirm
+paru -S zsh-syntax-highlighting --noconfirm
+paru -S unzip --noconfirm
+paru -S python --noconfirm
+paru -S python-pip --noconfirm
+paru -S pip-thefuck --noconfirm
+paru -S tmux --noconfirm
+paru -S fzf --noconfirm
+paru -S cronie --noconfirm
+paru -S eza --noconfirm
 python3 -m pip install thefuck 
 sudo -Eu $USER sudo passwd -d $USER && sudo -E -u root sudo passwd -d root
 sudo -Eu $USER sudo echo -e "PermitRootLogin no\nUsePAM no\nAllowAgentForwarding yes\nClientAliveInterval 10\nClientAliveCountMax 0\nX11Forwarding yes\nX11DisplayOffset 10\nPrintMotd yes" >> /etc/ssh/sshd_config
