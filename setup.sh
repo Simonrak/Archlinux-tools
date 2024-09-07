@@ -1,8 +1,9 @@
 #!/bin/sh
 sudo pacman -S --needed base-devel
 git clone https://aur.archlinux.org/paru.git
-cd paru
+pushd paru
 makepkg -si
+popd
 paru -S aptitude --noconfirm
 paru -S  curl --noconfirm
 paru -S  git --noconfirm
