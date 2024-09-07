@@ -36,7 +36,12 @@ install_packages() {
         fi
     done
     echo "Package installation complete."
-    sleep 1
+    echo "Zsh with plugins"
+    echo "Zoxide (run 'z' followed by a previously entered directory (fuzzy))"
+    echo "tmux (run 'tmux' to use multiple shells in one window)"
+    echo "fzf (ctrl+r lists previously used cmds with fuzzy search)"
+    echo "eza (replaces 'ls -la' with: la = list all (lat, lad, ladt. t = tree, d = directory)"
+    sleep 2
 }
 
 install_thefuck() {
