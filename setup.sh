@@ -1,4 +1,8 @@
 #!/bin/sh
+sudo pacman -S --needed base-devel
+git clone https://aur.archlinux.org/paru.git
+cd paru
+makepkg -si
 paru -S aptitude --noconfirm
 paru -S  curl --noconfirm
 paru -S  git --noconfirm
@@ -20,6 +24,8 @@ paru -S fzf --noconfirm
 paru -S cronie --noconfirm
 paru -S eza --noconfirm
 python3 -m pip install thefuck 
+curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
+echo -e "set softwrap\nset boldtext\nset backup\nset autoindent\nset atblanks\nset mouse\nset tabsize 4\nset tabstospaces\nset linenumbers" >> ~/.nanorc
 sudo -Eu $USER sudo passwd -d $USER && sudo -E -u root sudo passwd -d root
 sudo -Eu $USER sudo echo -e "PermitRootLogin no\nUsePAM no\nAllowAgentForwarding yes\nClientAliveInterval 10\nClientAliveCountMax 0\nX11Forwarding yes\nX11DisplayOffset 10\nPrintMotd yes" >> /etc/ssh/sshd_config
 sudo -Eu $USER sudo echo "$USER    ALL=(ALL:ALL) ALL" >> /etc/sudoers
@@ -49,3 +55,8 @@ sudo -E -u $USER sudo rm -rf ~/.zshrc
 sudo -E -u $USER sudo rm -rf root/.zshrc
 sudo -E -u $USER wget https://raw.githubusercontent.com/Simonrak/Archlinux-tools/main/z.zshrc -O ~/.zshrc
 sudo wget https://raw.githubusercontent.com/Simonrak/Archlinux-tools/main/z.zshrc -O /root/.zshrc
+sudo cp -r /usr/share/zsh/plugins /home/simon/.oh-my-zsh/custom/
+sudo chsh -s $(which zsh) $USER
+zsh
+source ./.zshrc
+source ./.nanorc
