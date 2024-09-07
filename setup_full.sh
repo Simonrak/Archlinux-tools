@@ -45,8 +45,6 @@ install_packages() {
 }
 
 install_thefuck() {
-    echo "Installing thefuck..."
-    sleep 1
     if ! pacman -Qi thefuck >/dev/null 2>&1; then
         sudo pacman -S --noconfirm thefuck > /dev/null 2>&1
     fi
@@ -54,8 +52,6 @@ install_thefuck() {
     if ! python3 -m pip show thefuck >/dev/null 2>&1; then
         python3 -m pip install thefuck > /dev/null 2>&1
     fi
-    echo "Thefuck installation complete."
-    sleep 1
 }
 
 configure_nano() {
@@ -64,6 +60,7 @@ configure_nano() {
     curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh > /dev/null 2>&1
     echo -e "set softwrap\nset boldtext\nset backup\nset autoindent\nset atblanks\nset mouse\nset tabsize 4\nset tabstospaces\nset linenumbers" >> ~/.nanorc
     echo "Nano configuration complete."
+    echo "Added line numbers, syntax highlights and others."
     sleep 1
 }
 
@@ -84,28 +81,24 @@ setup_zsh() {
     if [ ! -d "$HOME/.oh-my-zsh" ]; then
         sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended > /dev/null 2>&1
     fi
-
+    echo "installing zsh theme and plugins"
+    sleep 1
     ZSH_CUSTOM=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}
     [ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ] && git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting > /dev/null 2>&1
     [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ] && git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions > /dev/null 2>&1
     [ ! -d "$ZSH_CUSTOM/themes/powerlevel10k" ] && git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM}/themes/powerlevel10k > /dev/null 2>&1
     [ ! -d "$HOME/.fzf" ] && git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf > /dev/null 2>&1 && ~/.fzf/install --all > /dev/null 2>&1
 
-    sudo chsh -s $(which zsh) $USER > /dev/null 2>&1
     echo "Zsh setup complete."
     sleep 1
 }
 
 configure_pip() {
-    echo "Configuring pip..."
-    sleep 1
     PIP_CONF=~/.config/pip/pip.conf
     if [ ! -f "$PIP_CONF" ]; then
         mkdir -p ~/.config/pip > /dev/null 2>&1
         echo -e "[global]\nbreak-system-packages=true" > "$PIP_CONF"
     fi
-    echo "Pip configuration complete."
-    sleep 1
 }
 
 finalize_setup() {
@@ -113,6 +106,8 @@ finalize_setup() {
     sleep 1
     wget https://raw.githubusercontent.com/Simonrak/Archlinux-tools/main/z.zshrc -O ~/.zshrc > /dev/null 2>&1
     sudo cp -r /usr/share/zsh/plugins /home/$USER/.oh-my-zsh/custom/ > /dev/null 2>&1
+    echo "Changing shell to zsh..."
+    sleep 1
     sudo chsh -s $(which zsh) $USER > /dev/null 2>&1
     echo "Setup finalized."
     sleep 1
