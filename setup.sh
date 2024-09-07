@@ -53,7 +53,7 @@ sudo sed -i 's/Prompt=lts/Prompt=latest/g' /etc/update-manager/release-upgrades
 # Set up .zshrc
 wget https://raw.githubusercontent.com/Simonrak/Archlinux-tools/main/z.zshrc -O ~/.zshrc
 sudo wget https://raw.githubusercontent.com/Simonrak/Archlinux-tools/main/z.zshrc -O /root/.zshrc
-sudo cp -r /usr/share/zsh/plugins /home/simon/.oh-my-zsh/custom/
+sudo cp -r /usr/share/zsh/plugins /home/$USER/.oh-my-zsh/custom/
 
 # Change shell to zsh for the user
 sudo chsh -s $(which zsh) $USER
