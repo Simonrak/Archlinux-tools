@@ -151,6 +151,6 @@ source $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
  alias xclip="xclip -selection c"
  # usage: cheat bash/sed
  
-export PATH="$PATH:/home/simon/.local/bin"
+export PATH="$PATH:/home/$USER/.local/bin"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
