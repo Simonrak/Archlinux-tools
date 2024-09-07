@@ -127,7 +127,7 @@ main() {
 
     kill $SUDO_PID > /dev/null 2>&1
     sleep 1
-    echo "Setup complete. The system will now log you out. Please log in again to apply all changes."
+    echo "Setup complete. Please log in again to apply all changes."
     sleep 3
 
     exit 0
