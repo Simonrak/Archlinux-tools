@@ -8,7 +8,7 @@ elevate_privileges() {
 
 install_libssl() {
     echo "Installing libssl1.1..."
-    sudo pacman -S git wget make
+    sudo pacman -Syu wget unzip --noconfirm
     cd /tmp
     wget https://archive.archlinux.org/packages/o/openssl-1.1/openssl-1.1-1.1.1.u-1-x86_64.pkg.tar.zst
     sudo pacman -U --noconfirm openssl-1.1-1.1.1.u-1-x86_64.pkg.tar.zst
@@ -17,7 +17,7 @@ install_libssl() {
 }
 
 install_paru() {
-    sudo pacman -S --needed base-devel git wget make libssl1.1
+    sudo pacman -S --needed base-devel git make
     echo "Installing paru..."
     cd /tmp
     wget https://github.com/Morganamilo/paru/releases/download/v2.0.3/paru-v2.0.3-x86_64.tar.zst
@@ -28,7 +28,7 @@ install_paru() {
 }
 
 install_packages() {
-    PACKAGES="curl wget python python-pip zsh tmux fzf cronie unzip pipx zoxide nano-syntax-highlighting zsh-autosuggestions zsh-syntax-highlighting eza"
+    PACKAGES="python python-pip zsh tmux fzf cronie pipx zoxide nano-syntax-highlighting zsh-autosuggestions zsh-syntax-highlighting eza"
 
     echo "Installing packages..."
     sleep 1
