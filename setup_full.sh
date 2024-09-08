@@ -1,5 +1,41 @@
 #!/bin/sh
 
+detect_distro() {
+    if [ -f /etc/os-release ]; then
+        . /etc/os-release
+        DISTRO=$ID
+    elif [ -f /etc/lsb-release ]; then
+        . /etc/lsb-release
+        DISTRO=$DISTRIB_ID
+    elif [ -f /etc/debian_version ]; then
+        DISTRO="debian"
+    elif [ -f /etc/arch-release ]; then
+        DISTRO="arch"
+    else
+        DISTRO="unknown"
+    fi
+
+    case $DISTRO in
+        "ubuntu"|"debian")
+            PKG_MANAGER="apt"
+            ;;
+        "arch")
+            if command -v paru >/dev/null 2>&1; then
+                PKG_MANAGER="paru"
+            else
+                PKG_MANAGER="pacman"
+            fi
+            ;;
+        *)
+            echo "Unsupported distribution: $DISTRO"
+            exit 1
+            ;;
+    esac
+
+    echo "Detected distribution: $DISTRO"
+    echo "Package manager: $PKG_MANAGER"
+}
+
 elevate_privileges() {
     sudo -v
     while true; do sudo -v; sleep 60; done &
@@ -8,34 +44,67 @@ elevate_privileges() {
 
 install_libssl() {
     echo "Installing libssl1.1..."
-    sudo pacman -Syu wget unzip --noconfirm
-    cd /tmp
-    wget https://archive.archlinux.org/packages/o/openssl-1.1/openssl-1.1-1.1.1.u-1-x86_64.pkg.tar.zst
-    sudo pacman -U --noconfirm openssl-1.1-1.1.1.u-1-x86_64.pkg.tar.zst
-    cd -
+    case $PKG_MANAGER in
+        "apt")
+            sudo apt-get update
+            sudo apt-get install -y libssl1.1
+            ;;
+        "pacman"|"paru")
+            cd /tmp
+            wget https://archive.archlinux.org/packages/o/openssl-1.1/openssl-1.1-1.1.1.u-1-x86_64.pkg.tar.zst
+            sudo pacman -U --noconfirm openssl-1.1-1.1.1.u-1-x86_64.pkg.tar.zst
+            cd -
+            ;;
+    esac
     echo "libssl1.1 installed successfully."
 }
 
 install_paru() {
-    sudo pacman -S --needed base-devel git make
-    echo "Installing paru..."
-    cd /tmp
-    wget https://github.com/Morganamilo/paru/releases/download/v2.0.3/paru-v2.0.3-x86_64.tar.zst
-    tar -xvf paru-v2.0.3-x86_64.tar.zst
-    sudo mv paru /usr/local/bin/paru
-    cd -
-    echo "paru installed successfully."
+    if [ "$PKG_MANAGER" = "pacman" ]; then
+        sudo pacman -S --needed base-devel git make
+        echo "Installing paru..."
+        cd /tmp
+        wget https://github.com/Morganamilo/paru/releases/download/v2.0.3/paru-v2.0.3-x86_64.tar.zst
+        tar -xvf paru-v2.0.3-x86_64.tar.zst
+        sudo mv paru /usr/local/bin/paru
+        cd -
+        echo "paru installed successfully."
+        PKG_MANAGER="paru"
+    else
+        echo "paru is not applicable for this distribution. Skipping."
+    fi
+}
+
+install_fzf() {
+    echo "Installing fzf..."
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/src/fzf
+    ~/src/fzf/install --all
+    echo "fzf installed successfully."
 }
 
 install_packages() {
-    PACKAGES="python python-pip zsh tmux fzf cronie pipx zoxide nano-syntax-highlighting zsh-autosuggestions zsh-syntax-highlighting eza"
+    PACKAGES="wget curl unzip git python pip pipx python-pip zsh tmux cronie zoxide nano-syntax-highlighting zsh-autosuggestions zsh-syntax-highlighting eza"
 
     echo "Installing packages..."
     sleep 1
     for pkg in $PACKAGES; do
-        if ! paru -S --noconfirm $pkg; then
-            echo "Failed to install $pkg. Skipping."
-        fi
+        case $PKG_MANAGER in
+            "apt")
+                if ! sudo apt-get install -y $pkg; then
+                    echo "Failed to install $pkg. Skipping."
+                fi
+                ;;
+            "pacman")
+                if ! sudo pacman -S --noconfirm $pkg; then
+                    echo "Failed to install $pkg. Skipping."
+                fi
+                ;;
+            "paru")
+                if ! paru -S --noconfirm $pkg; then
+                    echo "Failed to install $pkg. Skipping."
+                fi
+                ;;
+        esac
     done
 
     echo "Package installation complete."
@@ -130,10 +199,14 @@ finalize_setup() {
 main() {
     echo "Starting setup process..."
     sleep 1
+    detect_distro
     elevate_privileges
-    install_libssl
-    install_paru
+    if [ "$PKG_MANAGER" = "pacman" ] || [ "$PKG_MANAGER" = "paru" ]; then
+        install_libssl
+        install_paru
+    fi
     install_packages
+    install_fzf
     install_thefuck
     update_system_configs
     configure_nano
