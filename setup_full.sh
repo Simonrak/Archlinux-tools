@@ -7,7 +7,7 @@ elevate_privileges() {
 }
 
 install_paru() {
-    if ! command -v paru >/dev/null 2>&1; then
+    if ! command -v paru ; then
         echo "Installing paru..."
         sleep 1
         sudo pacman -S --needed base-devel git wget > /dev/null 2>&1
@@ -29,7 +29,7 @@ install_packages() {
     echo "Installing packages..."
     sleep 1
     for pkg in $PACKAGES; do
-        if ! paru -Q $pkg >/dev/null 2>&1; then
+        if ! paru -Q $pkg ; then
             if ! paru -S --noconfirm $pkg > /dev/null 2>&1; then
                 echo "Failed to install $pkg. Skipping."
             fi
@@ -45,11 +45,11 @@ install_packages() {
 }
 
 install_thefuck() {
-    if ! pacman -Qi thefuck >/dev/null 2>&1; then
+    if ! pacman -Qi thefuck ; then
         sudo pacman -S --noconfirm thefuck > /dev/null 2>&1
     fi
 
-    if ! python3 -m pip show thefuck >/dev/null 2>&1; then
+    if ! python3 -m pip show thefuck ; then
         python3 -m pip install thefuck > /dev/null 2>&1
     fi
 }
