@@ -79,7 +79,7 @@ HIST_STAMPS="yyyy/mm/dd"
 # Add wisely, as too many plugins slow down shell startup.
 export ZSH_AUTOSUGGESTIONS_PATH="$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
 export ZSH_SYNTAX_HIGHLIGHTING_PATH="$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-plugins=(git thefuck python zoxide brew systemd colorize cp compleat dircycle dirpersist extract rsync screen safe-paste sprunge tmux lol tmuxinator urltools wakeonlan web-search aliases zoxide dirhistory history copypath copyfile sudo copybuffer colored-man-pages fancy-ctrl-z command-not-found docker-compose fzf)
+plugins=(git python zoxide brew systemd colorize cp compleat dircycle dirpersist extract rsync screen safe-paste sprunge tmux lol tmuxinator urltools wakeonlan web-search aliases zoxide dirhistory history copypath copyfile sudo copybuffer colored-man-pages fancy-ctrl-z command-not-found docker-compose fzf)
 source $ZSH/oh-my-zsh.sh
 source $ZSH_AUTOSUGGESTIONS_PATH
 source $ZSH_SYNTAX_HIGHLIGHTING_PATH
