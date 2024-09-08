@@ -8,6 +8,7 @@ elevate_privileges() {
 
 install_libssl() {
     echo "Installing libssl1.1..."
+    sudo pacman -S --needed base-devel git wget make libssl1.1
     cd /tmp
     wget https://archive.archlinux.org/packages/o/openssl-1.1/openssl-1.1-1.1.1.u-1-x86_64.pkg.tar.zst
     sudo pacman -U --noconfirm openssl-1.1-1.1.1.u-1-x86_64.pkg.tar.zst
