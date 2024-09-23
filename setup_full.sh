@@ -20,7 +20,7 @@ install_paru() {
     sudo pacman -S --needed base-devel git make
     echo "Installing paru..."
     cd /tmp
-    wget https://github.com/Morganamilo/paru/releases/download/v2.0.3/paru-v2.0.3-x86_64.tar.zst
+    wget https://github.com/Morganamilo/paru/releases/download/v2.0.4/paru-v2.0.4-x86_64.tar.zst
     tar -xvf paru-v2.0.3-x86_64.tar.zst
     sudo mv paru /usr/local/bin/paru
     cd -
